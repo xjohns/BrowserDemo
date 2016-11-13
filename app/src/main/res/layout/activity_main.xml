@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.xiong.browserdemo.MainActivity">
+
+    <WebView
+        android:id="@+id/wView"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/radioGroup"
+        >
+    </WebView>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <RadioButton
+            android:gravity="center"
+            android:button="@null"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@mipmap/back"
+            android:layout_width="135dp"
+            android:layout_height="50dp"
+            android:id="@+id/rbtn_back"
+            android:layout_weight="1"/>
+
+        <RadioButton
+            android:gravity="center"
+            android:button="@null"
+            android:background="@mipmap/home"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/rbtn_home"
+            android:layout_weight="1"
+            />
+
+        <RadioButton
+            android:gravity="center"
+            android:button="@null"
+            android:background="@mipmap/forward"
+            android:layout_width="135dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="50dp"
+            android:id="@+id/rbtn_forward"
+            android:layout_weight="1"/>
+
+
+
+    </RadioGroup>
+</RelativeLayout>
