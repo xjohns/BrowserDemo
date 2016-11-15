@@ -6,13 +6,40 @@
     android:layout_height="match_parent"
     tools:context="com.example.xiong.browserdemo.MainActivity">
 
+
+    <LinearLayout
+        android:id="@+id/top_search"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:hint="请输入网址"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_weight="1.04" />
+        <Button
+            android:id="@+id/search"
+            android:text="转到"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <WebView
         android:id="@+id/wView"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/radioGroup"
+        android:layout_below="@+id/top_search"
         >
+
     </WebView>
 
     <RadioGroup
@@ -58,7 +85,6 @@
             android:id="@+id/rbtn_forward"
             android:layout_weight="1"/>
 
-
-
     </RadioGroup>
+
 </RelativeLayout>

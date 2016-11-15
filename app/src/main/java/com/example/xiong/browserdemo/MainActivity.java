@@ -10,6 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -17,8 +19,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_main;
     private Button btn_back;
     private Button btn_forward;
+    private Button btn_search;
     private WebView wVmain;
     private ProgressDialog pDialog1;
+    private EditText eText;
+    private String url_home="http:/www.baidu.com/";
+    private String url_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +36,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init() {
         btn_main = (Button) findViewById(R.id.rbtn_home);
         btn_back = (Button) findViewById(R.id.rbtn_back);
+        btn_search = (Button) findViewById(R.id.search);
         btn_forward = (Button) findViewById(R.id.rbtn_forward);
+        eText = (EditText) findViewById(R.id.editText);
         btn_main.setOnClickListener(this);
         btn_back.setOnClickListener(this);
         btn_forward.setOnClickListener(this);
+        btn_search.setOnClickListener(this);
         wVmain = (WebView) findViewById(R.id.wView);
+        //设置好内置浏览器的属性
+        WebSettings webSettings = wVmain.getSettings();
+        webSettings.setJavaScriptEnabled(true);//启用支持javascript
+        wVmain.getSettings().setCacheMode(webSettings.LOAD_CACHE_ELSE_NETWORK);//优先使用缓存
+        wVmain.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                wVmain.loadUrl(url);
+                return true;
+            }
+
+        });
+        wVmain.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress==100){
+                    //网页加载完毕
+                    closeDialog();
+                }
+                else{
+                    //网页正在加载
+                    openDialog(newProgress);
+                }
+            }
+
+            private void openDialog(int newProgress) {
+                if (pDialog1==null){
+                    pDialog1 = new ProgressDialog(MainActivity.this);
+                    pDialog1.setTitle("正在加载中，Hold On!");
+                    pDialog1.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    pDialog1.setProgress(newProgress);
+                    pDialog1.show();
+                }
+                else{
+                    pDialog1.setProgress(newProgress);
+                }
+            }
+
+            private void closeDialog() {
+                if (pDialog1!=null&& pDialog1.isShowing()){
+                    pDialog1.dismiss();
+                    pDialog1=null;
+                }
+            }
+        });
     }
 
     //业务逻辑实现
@@ -48,52 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             //首页按钮功能
             case R.id.rbtn_home:{
-                wVmain.loadUrl("http://www.baidu.com/");//加载web资源
-                WebSettings webSettings = wVmain.getSettings();
-                webSettings.setJavaScriptEnabled(true);//启用支持javascript
-                wVmain.getSettings().setCacheMode(webSettings.LOAD_CACHE_ELSE_NETWORK);//优先使用缓存
-                wVmain.setWebViewClient(new WebViewClient(){
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        wVmain.loadUrl(url);
-                        return true;
-                    }
-
-                });
-                wVmain.setWebChromeClient(new WebChromeClient(){
-                    @Override
-                    public void onProgressChanged(WebView view, int newProgress) {
-                        super.onProgressChanged(view, newProgress);
-                        if (newProgress==100){
-                            //网页加载完毕
-                            closeDialog();
-                        }
-                        else{
-                            //网页正在加载
-                            openDialog(newProgress);
-                        }
-                    }
-
-                    private void openDialog(int newProgress) {
-                        if (pDialog1==null){
-                            pDialog1 = new ProgressDialog(MainActivity.this);
-                            pDialog1.setTitle("正在加载中，Hold On!");
-                            pDialog1.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                            pDialog1.setProgress(newProgress);
-                            pDialog1.show();
-                        }
-                        else{
-                            pDialog1.setProgress(newProgress);
-                        }
-                    }
-
-                    private void closeDialog() {
-                        if (pDialog1!=null&& pDialog1.isShowing()){
-                            pDialog1.dismiss();
-                            pDialog1=null;
-                        }
-                    }
-                });
+                wVmain.loadUrl(url_home);//加载web资源
+                break;
+            }
+            //通过EditText转到指定网址功能
+            case R.id.search:{
+                url_input = "http:/" + eText.getText().toString() +"/";
+                wVmain.loadUrl(url_input);
                 break;
             }
             //后退按钮功能
