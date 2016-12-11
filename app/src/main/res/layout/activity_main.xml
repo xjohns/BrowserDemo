@@ -26,6 +26,7 @@
               android:cursorVisible="false"
               android:hint="请输入网址"
               android:maxLines="1"
+              android:ellipsize="end"
               android:id="@+id/editText"
               />
           <Button
@@ -47,6 +48,7 @@
 
       <WebView
           android:id="@+id/wView"
+
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"
@@ -70,12 +72,24 @@
               <RadioButton
                   android:gravity="center"
                   android:button="@null"
-                  android:background="@drawable/back_selector"
+                  android:background="@drawable/menu_selector"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:layout_marginLeft="30dp"
-                  android:layout_marginRight="30dp"
-                  android:id="@+id/rbtn_back"
+                  android:id="@+id/rbtn_menu"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:layout_weight="1"
+                  />
+
+              <RadioButton
+                  android:gravity="center"
+                  android:button="@null"
+                  android:background="@drawable/refresh_selector"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:id="@+id/rbtn_refresh"
                   android:layout_weight="1"
                   />
 
@@ -94,14 +108,27 @@
               <RadioButton
                   android:gravity="center"
                   android:button="@null"
+                  android:background="@drawable/back_selector"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:id="@+id/rbtn_back"
+                  android:layout_weight="1"
+                  />
+
+              <RadioButton
+                  android:gravity="center"
+                  android:button="@null"
                   android:background="@drawable/forward_selector"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:id="@+id/rbtn_forward"
-                  android:layout_marginLeft="30dp"
-                  android:layout_marginRight="30dp"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
                   android:layout_weight="1"
                   />
+
 
           </RadioGroup>
       </LinearLayout>
